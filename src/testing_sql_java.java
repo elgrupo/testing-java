@@ -1,7 +1,7 @@
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 
 public class testing_sql_java {
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
@@ -13,17 +13,33 @@ public class testing_sql_java {
         String user = "root";
         String pass = "test";
 
-        String query = "SELECT VERSION()";
+        ArrayList<Date_SQL> converted_brake_dates = new ArrayList<>();
+
+
+        String query = "SELECT * FROM Bike;";
+        ArrayList<String>  list_brake_dates = new ArrayList<>();
         // Try to connect
         try (Connection con = DriverManager.getConnection(url, user, pass);
 
              Statement st = con.createStatement();
              ResultSet rs = st.executeQuery(query)) {
             System.out.println("It works!");
-            if (rs.next()) {
-
-                System.out.println(rs.getString(1));
+            while (rs.next())
+            {
+                String temp = rs.getString(4);
+                list_brake_dates.add(temp);
+                System.out.println(temp);
             }
+            for (int i =0; i < list_brake_dates.size(); i++)
+            {
+                converted_brake_dates.add(new Date_SQL(list_brake_dates.get(i)));
+            }
+            for (int i =0; i < converted_brake_dates.size(); i++)
+            {
+                System.out.println("day: " + converted_brake_dates.get(i).getD());
+            }
+            System.out.println("oldest date: "+ converted_brake_dates.get(Date_SQL.findOldestDate(converted_brake_dates)));
+
         }
         catch (SQLException ex) {
 
