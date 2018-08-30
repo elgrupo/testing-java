@@ -38,7 +38,10 @@ public class testing_sql_java {
             {
                 System.out.println("day: " + converted_brake_dates.get(i).getD());
             }
-            System.out.println("oldest date: "+ converted_brake_dates.get(Date_SQL.findOldestDate(converted_brake_dates)));
+            //System.out.println(Date_SQL.compareDates(converted_brake_dates.get(3),converted_brake_dates.get(0)));
+            System.out.println("oldest date: "+ converted_brake_dates.get(Date_SQL.findOldestDate(converted_brake_dates)).getD());
+            System.out.println("oldest date: "+ converted_brake_dates.get(Date_SQL.findOldestDate(converted_brake_dates)).getM());
+
 
         }
         catch (SQLException ex) {

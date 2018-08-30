@@ -44,9 +44,10 @@ public class Date_SQL
         int tempIndex = 0;
         for (int i = 0; i < arr_dates.size()-1; i++)
         {
-            if (compareDates(arr_dates.get(tempIndex),arr_dates.get(i+1)) <= 0)
+            int temp2Index = i+1;
+            if (compareDates(arr_dates.get(tempIndex),arr_dates.get(temp2Index)) > 0)
             {
-                tempIndex = i+1;
+                tempIndex = temp2Index;
             }
         }
         return tempIndex;
