@@ -7,13 +7,27 @@ public class Date_SQL
     private int year;
     private int month;
     private int day;
+    //needed for some comparisons.
+    private int bike_index;
+    private String unSepDate;
 
     //remember that the order is yyyy-mm-dd same as in sql
     public Date_SQL(String sql_unformated) {
+        unSepDate = sql_unformated;
         int[] temp_date = convertStringtoDate(sql_unformated);
         year = temp_date[0];
         month = temp_date[1];
         day = temp_date[2];
+    }
+
+    public Date_SQL(String sql_unformated, int bike_index_arg) {
+        unSepDate = sql_unformated;
+        int[] temp_date = convertStringtoDate(sql_unformated);
+        year = temp_date[0];
+        month = temp_date[1];
+        day = temp_date[2];
+
+        bike_index = bike_index_arg;
     }
 
     public Date_SQL(int year_arg, int month_arg, int day_arg)
@@ -37,6 +51,25 @@ public class Date_SQL
             }
             }
             return tempIntArr;
+    }
+
+    //sorts from oldest to the newest.
+    static public ArrayList<Date_SQL> sortArray(ArrayList<Date_SQL> arr_dates_temp)
+    {
+
+        ArrayList<Date_SQL> arr_dates = new ArrayList<>(arr_dates_temp);
+        ArrayList<Date_SQL> sorted = new ArrayList<>();
+
+        System.out.println(arr_dates.size());
+        while (arr_dates.size() >0)
+        {
+            int temp_index = findOldestDate(arr_dates);
+            Date_SQL oldest_temp = arr_dates.get(temp_index);
+            sorted.add(oldest_temp);
+            arr_dates.remove(temp_index);
+            System.out.println(sorted.size());
+        }
+        return sorted;
     }
 
     //Linear searches for the oldest date (aka smallest date)
@@ -78,7 +111,8 @@ public class Date_SQL
 
     }
 
-    //returns an int array in the order: year, month, day
+    //Format yyyy-mm-dd
+    public String getStringDate() {return unSepDate;}
 
     public int getY()
     {

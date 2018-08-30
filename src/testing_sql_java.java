@@ -27,18 +27,17 @@ public class testing_sql_java {
             while (rs.next())
             {
                 String temp = rs.getString(4);
-                list_brake_dates.add(temp);
+                int tempIndex = rs.getInt(1);
+                converted_brake_dates.add(new Date_SQL(temp,tempIndex));
                 System.out.println(temp);
             }
-            for (int i =0; i < list_brake_dates.size(); i++)
+
+            ArrayList<Date_SQL> sorted_dates = Date_SQL.sortArray(converted_brake_dates);
+
+            for (Date_SQL i : sorted_dates)
             {
-                converted_brake_dates.add(new Date_SQL(list_brake_dates.get(i)));
+              System.out.println(i.getStringDate());
             }
-            for (int i =0; i < converted_brake_dates.size(); i++)
-            {
-                System.out.println("day: " + converted_brake_dates.get(i).getD());
-            }
-            //System.out.println(Date_SQL.compareDates(converted_brake_dates.get(3),converted_brake_dates.get(0)));
             System.out.println("oldest date: "+ converted_brake_dates.get(Date_SQL.findOldestDate(converted_brake_dates)).getD());
             System.out.println("oldest date: "+ converted_brake_dates.get(Date_SQL.findOldestDate(converted_brake_dates)).getM());
 
